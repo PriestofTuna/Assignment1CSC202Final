@@ -211,6 +211,7 @@ public class Controller {
 
     public void accountCreate(ActionEvent actionEvent) {
             String selected = genderI.getValue();
+            emailIText = emailI.getText();
         //depending on genderI's value, it will set gender to a char, or halt the account's creation.
         if(selected == null) {
             genderI.setValue("Blank");
@@ -234,7 +235,7 @@ public class Controller {
                 //if it doesn't exist, check to see if it can be created, and set defaults for optional values if empty.
                 usernameTaken.setTextFill(rgb(255,255,255));
                 usernameTaken.setOpacity(0);
-                if (genderSelected && isPasswordCorrect && ((isEmailCorrect | emailIText.isEmpty())) && isfirmPasswordICorrect && isUsernameFilled && isDateOfBirthFilled && isfNameFilled && islNameFilled && isPhoneNumberITextFilled) {
+                if (genderSelected && isPasswordCorrect && ((isEmailCorrect | emailIText.isEmpty() | emailIText.equals("\u0002"))) && isfirmPasswordICorrect && isUsernameFilled && isDateOfBirthFilled && isfNameFilled && islNameFilled && isPhoneNumberITextFilled) {
                     if(emailIText.isEmpty()) {
                         emailIText = "DefaultEmail@Account.com";
                     }
