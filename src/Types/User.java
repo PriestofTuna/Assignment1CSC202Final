@@ -1,12 +1,14 @@
 package Types;
 
+import Interfaces.CompareTo;
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import javafx.scene.image.Image;
 import java.io.*;
 
 /**
  * Created by lytte on 8/23/2016.
  */
-public class User extends Person {
+public class User extends Person implements Comparable,Interfaces.Equals {
     private String[] loginInfo;
     private String user;
     private String email;
@@ -14,15 +16,21 @@ public class User extends Person {
     private String password;
     private String phoneNumber;
     private String imageUrl;
-    private Image defaultImage = new Image("file:/C:/Users/lytte/OneDrive/Pictures/Saved%20Pictures/RandomTestPicture.jpg");
+    //private Image defaultImage = new Image("file:/C:/Users/lytte/OneDrive/Pictures/Saved%20Pictures/RandomTestPicture.jpg");
     private static File UserBase;
 
+    private char testGender;
+    private String testDob;
     static {
-        //heh, Interesting
         UserBase = new File("UserBase");
         UserBase.mkdir();
     }
-    public User(String username) throws  IOException{
+    public User(String user, String dob, char gender) {
+        this.user = user;
+        this.testDob = dob;
+        this.testGender = gender;
+    }
+    public User(String username) throws IOException {
         try {
             if (exists(username)) {
                 File usernameFile = new File("UserBase", (username + ".dat"));
@@ -36,10 +44,11 @@ public class User extends Person {
                     accountInfo[i] = inUser.readUTF();
                 }
                 accountInfo[9] = "" + inUser.readChar();
+//            System.out.println(accountInfo[0] + ":username? :" + accountInfo[1] + ":Email? :" + accountInfo[2] + ":Password? :" + accountInfo[3] + ":Phone? :" + accountInfo[4] + ":URL? :" + accountInfo[5] + ":FiName? :" + accountInfo[6] + ":LaName? :" + accountInfo[7] + ":ssn? :" + accountInfo[8] + ":dob? :" + accountInfo[9] + ":Gender? :");
                 loginInfo = accountInfo;
                 setAll(loginInfo);
             }
-        }catch(EOFException e) {
+        } catch (EOFException e) {
             System.out.println("Please no");
         }
     }
@@ -102,12 +111,13 @@ public class User extends Person {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public Image userImage() {
-        if(getImageUrl().isEmpty()) {
+        if (getImageUrl().isEmpty()) {
             setImageUrl("file:/C:/Users/lytte/OneDrive/Pictures/Saved%20Pictures/RandomTestPicture.jpg");
             return new Image("file:/C:/Users/lytte/OneDrive/Pictures/Saved%20Pictures/RandomTestPicture.jpg");
         }
@@ -127,8 +137,8 @@ public class User extends Person {
         setSSN(all[7]);
         setDateOB(all[8]);
         setGender(gender);
-
     }
+
     public void writeToFile() throws IOException {
         File user = new File(UserBase.getName(), this.user + ".dat");
         //Creates a file ending with .dat for binary/UTF
@@ -145,12 +155,13 @@ public class User extends Person {
         outUser.writeChar(this.getGender());
         //this is only the length of a char, others are byte length for strings
     }
+
     public static String[] readFilePartial(String username) throws IOException {
         //used to check account
         String usernameF = username + ".dat";
         File usernameFile = new File("UserBase", usernameF);
         String accountInfo[] = {"null", "null", "null"};
-        if(exists(username)){
+        if (exists(username)) {
             DataInputStream inUser = new DataInputStream(new FileInputStream(usernameFile));
             accountInfo[0] = inUser.readUTF();
             //username
@@ -163,7 +174,7 @@ public class User extends Person {
     }
 
     public static boolean checkPasswords(String password, String firmPassword) {
-        String patternPass = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,64}";
+        String patternPass = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()-_='+;?:/|<>.,`~]).{8,64}";
         if (!password.isEmpty()) {
             if (password.equals(firmPassword)) {
                 if (password.matches(patternPass) && firmPassword.matches(patternPass)) {
@@ -192,12 +203,63 @@ public class User extends Person {
         File userF = new File("UserBase", userFile);
         return userF.exists();
     }
+
     public String userInfo() {
-        return(this.user + "\n" + this.email + "\n" +
-                this.phoneNumber +  "\n" + this.imageUrl + "\n" + this.getfiName() + "\n" + this.getlaName() + "\n" + this.getGender() +
+        return (this.user + "\n" + this.email + "\n" +
+                this.phoneNumber + "\n" + this.imageUrl + "\n" + this.getfiName() + "\n" + this.getlaName() + "\n" + this.getGender() +
                 "\n" + this.getSSN() + "\n" + this.getDateOB() + "\n");
     }
+    public String toString() {
+        return userInfo();
+    }
+
     public String[] getLoginInfo() {
         return loginInfo;
+    }
+
+    //interface calls
+    @Override
+    public <E>boolean Equals(E e1) {
+        User userE1 = (User) e1;
+        if (userE1.user.equalsIgnoreCase(this.user)) {
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public int compareTo(Object e1) {
+    return this.user.compareTo(((User)e1).getUser());
+
+        //        boolean answers[] = {false, false, false};
+//        User userE1;
+//        int counterU1 = 0;
+//        int counterU2 = 0;
+//        int counterDOB1 = 0;
+//        int counterDOB2 = 0;
+//        int end = 0;
+//        userE1 = (User) e1;
+//        char user1C[] = userE1.user.toCharArray();
+//        char user2C[] = this.user.toCharArray();
+//        //char arrays for the users compared
+//        char dob1C[] = userE1.getDateOB().toCharArray();
+//        char dob2C[] = this.getDateOB().toCharArray();
+//        //char arrays for the dob
+//        for(int j = 0; j < userE1.user.length(); j++) {
+//            counterU1 += user1C[j];
+//            counterU2 += user2C[j];
+//            //adds the ASCII values of the counters
+//        }
+//        for(int j = 0; j < counterDOB1; j++) {
+//            counterDOB1 += dob1C[j];
+//            counterDOB2 += dob2C[j];
+//        }
+//        if((counterDOB1 + counterU1) > (counterDOB2 + counterU2)) {
+//            return 1;
+//        }else if((counterDOB1 + counterU1) == (counterDOB2 + counterU2)) {
+//            return 0;
+//        }else if((counterDOB1 + counterU1) < (counterDOB2 + counterU2)) {
+//            return -1;
+//        }
+//        return end;
     }
 }

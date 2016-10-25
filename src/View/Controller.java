@@ -244,6 +244,7 @@ public class Controller {
                     }
                     if(imageURL.isEmpty()) {
                         imageURL = "file:/C:/Users/lytte/OneDrive/Pictures/Saved%20Pictures/RandomTestPicture.jpg";
+                        //change this to an Image downloaded into the project, perhaps using css? Probably manually though.
                     }
 
                     User user = new User(fNameIText, lNameIText,

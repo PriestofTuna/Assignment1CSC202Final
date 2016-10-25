@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="300.0" maxWidth="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lableU" layoutX="30.0" layoutY="30.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" wrapText="true" />
+      <Label fx:id="lableU1" layoutX="30.0" layoutY="90.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+      <Label fx:id="lableU11" layoutX="30.0" layoutY="150.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+      <Label fx:id="lableU111" layoutX="30.0" layoutY="210.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+      <Label fx:id="lableU1111" layoutX="200.0" layoutY="30.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" wrapText="true" />
+      <Label fx:id="lableU11111" layoutX="200.0" layoutY="90.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+      <Label fx:id="lableU111111" layoutX="200.0" layoutY="150.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+      <Label fx:id="lableU1111111" layoutX="200.0" layoutY="210.0" styleClass="spacing" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+      <Label fx:id="lableU11111111" alignment="CENTER" layoutX="2.0" layoutY="270.0" maxWidth="340.0" prefHeight="17.0" prefWidth="340.0" stylesheets="@../StyleSheets/labels.css" text="Value:" wrapText="true" />
+   </children>
+</Pane>
